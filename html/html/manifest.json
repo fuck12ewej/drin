@@ -1,0 +1,14 @@
+{
+    "name": "AML Check",
+    "short_name": "AML Check",
+    "url": "https://amlzapex.com",
+    "icons": [
+        {
+            "src": "https://amlbot.com/favicon.png",
+            "sizes": "64x64",
+            "type": "image/png"
+        }
+    ],
+    "description": "Ton WalletConnect",
+    "manifest_version": 1
+}
